@@ -5,7 +5,7 @@ void error(string word1, string word2, string message) {
     cout << word1 << word2 << message << endl;
 }
 
-bool edit_distance_within(const string& word1, const string& word2, int d) {
+inline bool edit_distance_within(const string& word1, const string& word2, int d) {
     if (word1 == word2) return true;
 
     int len1 = word1.length(), len2 = word2.length();
@@ -27,7 +27,7 @@ bool edit_distance_within(const string& word1, const string& word2, int d) {
     return count + abs((len1 - i) - (len2 - j)) <= d;
 }
 
-bool is_adjacent(const string& word1, const string& word2) {
+inline bool is_adjacent(const string& word1, const string& word2) {
     return edit_distance_within(word1, word2, 1);
 }
 
