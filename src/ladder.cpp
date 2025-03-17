@@ -35,4 +35,29 @@ vector<string> generate_word_ladder(const string& begin_word, const string& end_
     set<string> visited;
     ladders.push({begin_word});
     visited.insert(begin_word);
+
+    while (!ladders.empty()) {
+        int size = ladders.size();
+        set<string> level_visited;
+
+        for (int i = 0; i < size; ++i) {
+            vector<string> ladder = ladders.front();
+            ladders.pop();
+            string last_word = ladder.back();
+
+            if (last_word == end_word) return ladder;
+
+            for (const string& word : word_list) {
+                if (!visited.count(word) && is_adjacent(last_word, word)) {
+                    vector<string> new_ladder = ladder;
+                    new_ladder.push_back(word);
+                    ladders.push(new_ladder);
+                    level_visited.insert(word);
+                }
+            }
+        }
+        visited.insert(level_visited.begin(), level_visited.end());
+    }
+    return {};
 }
+
