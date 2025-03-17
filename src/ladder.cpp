@@ -1,4 +1,5 @@
 #include "../src/ladder.h"
+#include <unordered_set>
 
 void error(string word1, string word2, string message) {
     cout << word1 << word2 << message << endl;
@@ -26,7 +27,10 @@ bool edit_distance_within(const string& word1, const string& word2, int d) {
             ++i; ++j;
         }
     }
-    return true;
+
+    if (i == len1 && j == len2) return true;
+
+    return count + abs((len1 - i) - (len2 - j)) <= d;
 }
 
 bool is_adjacent(const string& word1, const string& word2) {
@@ -36,16 +40,16 @@ bool is_adjacent(const string& word1, const string& word2) {
 vector<string> generate_word_ladder(const string& begin_word, const string& end_word, const set<string>& word_list) {
     if (word_list.find(end_word) == word_list.end()) return {};
     queue<vector<string>> ladders;
-    set<string> visited;
+    unordered_set<string> visited;
     ladders.push({begin_word});
     visited.insert(begin_word);
 
     while (!ladders.empty()) {
         int size = ladders.size();
-        set<string> level_visited;
+        unordered_set<string> level_visited;
 
         for (int i = 0; i < size; ++i) {
-            vector<string> ladder = ladders.front();
+            vector<string> ladder = std::move(ladders.front());
             ladders.pop();
             string last_word = ladder.back();
 
@@ -80,6 +84,7 @@ void load_words(set<string>& word_list, const string& file_name) {
 void print_word_ladder(const vector<string>& ladder) {
     if (ladder.empty()) {
         cout << "No word ladder found." << endl;
+        return;
     }
     
     cout << "Word ladder found: ";

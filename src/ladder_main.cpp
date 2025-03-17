@@ -10,7 +10,7 @@ void verify_word_ladder() {
 
     my_assert(generate_word_ladder("cat", "dog", word_list).size() == 4);
 
-    // my_assert(generate_word_ladder("marty", "curls", word_list).size() == 6);
+    my_assert(generate_word_ladder("marty", "curls", word_list).size() == 6);
 
     my_assert(generate_word_ladder("code", "data", word_list).size() == 6);
 
@@ -23,12 +23,13 @@ void verify_word_ladder() {
 }
 
 int main() {
-    verify_word_ladder();
+    // verify_word_ladder();
 
-    // set<string> word_list;
+    set<string> word_list;
 
-    // load_words(word_list, "/Users/coolkid/Downloads/ics46/ics-46-hw-9-slenren/src/words.txt");
+    load_words(word_list, "/Users/coolkid/Downloads/ics46/ics-46-hw-9-slenren/src/words.txt");
 
-    // vector<string> ladder = generate_word_ladder("cat", "cat", word_list);
-    // print_word_ladder(ladder);
+    vector<string> ladder = generate_word_ladder("were", "were", word_list);
+    cout << ladder.size();
+    print_word_ladder(ladder);
 }
