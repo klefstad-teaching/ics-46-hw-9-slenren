@@ -60,7 +60,7 @@ vector<string> generate_word_ladder(const string& begin_word, const string& end_
                     new_ladder.push_back(word);
                     ladders.push(new_ladder);
                     level_visited.insert(word);
-                    cout << "CHOSEN!!!" << word << endl;;
+                    // cout << "CHOSEN!!!" << word << endl;;
                 }
             }
         }
@@ -80,6 +80,9 @@ void load_words(set<string>& word_list, const string& file_name) {
 }
 
 void print_word_ladder(const vector<string>& ladder) {
+    if (ladder.empty()) return;
+    
+    cout << "Word ladder found: ";
     for (size_t i = 0; i < ladder.size(); ++i) {
         cout << ladder[i] << " ";
     }
