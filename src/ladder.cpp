@@ -30,33 +30,30 @@ inline bool is_adjacent(const string& word1, const string& word2) {
   return edit_distance_within(word1, word2, 1);
 }
 
-vector<string> generate_word_ladder(const string& begin_word, const string& end_word, const unordered_set<string>& word_list) {
-
+vector<string> generate_word_ladder(const string& begin_word, const string& end_word, const set<string>& word_list) {
   if (begin_word == end_word || !word_list.count(end_word)) return {};
 
   queue<vector<string>> ladders;
   unordered_set<string> visited;
-  ladders.push({begin_word});
+  ladders.emplace(vector<string>{begin_word});
   visited.insert(begin_word);
 
   while (!ladders.empty()) {
       int size = ladders.size();
       unordered_set<string> level_visited;
 
-      for (int i = 0; i < size; ++i) {
+      while (--size) {
           vector<string> ladder = std::move(ladders.front());
           ladders.pop();
           const string& last_word = ladder.back();
 
-
           if (last_word == end_word) return ladder;
-
 
           for (const string& word : word_list) {
               if (!visited.count(word) && is_adjacent(last_word, word)) {
                   vector<string> new_ladder = ladder;
                   new_ladder.push_back(word);
-                  ladders.push(std::move(new_ladder));
+                  ladders.emplace(std::move(new_ladder));
                   level_visited.insert(word);
               }
           }
@@ -66,7 +63,7 @@ vector<string> generate_word_ladder(const string& begin_word, const string& end_
   return {};
 }
 
-void load_words(unordered_set<string>& word_list, const string& file_name) {
+void load_words(set<string>& word_list, const string& file_name) {
   ifstream file(file_name);
   if (file) {
       string word;

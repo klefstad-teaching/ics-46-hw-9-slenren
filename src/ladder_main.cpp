@@ -4,7 +4,7 @@
 
 void verify_word_ladder() {
 
-    unordered_set<string> word_list;
+    set<string> word_list;
 
     load_words(word_list, "/Users/coolkid/Downloads/ics46/ics-46-hw-9-slenren/src/words.txt");
 
