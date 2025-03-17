@@ -6,26 +6,24 @@ void error(string word1, string word2, string message) {
 
 bool edit_distance_within(const string& word1, const string& word2, int d) {
     if (word1 == word2) return true;
+
     int len1 = word1.length(), len2 = word2.length();
     if (abs(len1 - len2) > d) return false;
 
     int i = 0, j = 0, count = 0;
+
     while (i < len1 && j < len2) {
         if (word1[i] != word2[j]) {
-            if (++count > 1) {
-                return false;
-            }
+            if (++count > d) return false;
             if (len1 > len2) {
-                i++;
+                ++i;
             } else if (len1 < len2) {
-                j++;
+                ++j;
             } else {
-                i++;
-                j++;
+                ++i; ++j;
             }
         } else {
-            i++;
-            j++;
+            ++i; ++j;
         }
     }
     return true;
