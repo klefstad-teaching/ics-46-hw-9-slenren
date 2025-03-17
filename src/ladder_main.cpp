@@ -29,7 +29,9 @@ int main() {
 
     load_words(word_list, "/Users/coolkid/Downloads/ics46/ics-46-hw-9-slenren/src/words.txt");
 
-    vector<string> ladder = generate_word_ladder("were", "were", word_list);
-    cout << ladder.size();
-    print_word_ladder(ladder);
+    // vector<string> ladder = generate_word_ladder("were", "were", word_list);
+    // cout << ladder.size();
+    // print_word_ladder(ladder);
+    cout << generate_word_ladder("were", "were", word_list).size();
+
 }
