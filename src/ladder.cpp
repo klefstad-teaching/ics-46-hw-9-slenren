@@ -54,11 +54,13 @@ vector<string> generate_word_ladder(const string& begin_word, const string& end_
             if (last_word == end_word) return ladder;
 
             for (const string& word : word_list) {
+                // cout << word;
                 if (!visited.count(word) && is_adjacent(last_word, word)) {
                     vector<string> new_ladder = ladder;
                     new_ladder.push_back(word);
                     ladders.push(new_ladder);
                     level_visited.insert(word);
+                    cout << "CHOSEN!!!" << word << endl;;
                 }
             }
         }
