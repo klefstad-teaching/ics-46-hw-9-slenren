@@ -42,7 +42,7 @@ vector<string> generate_word_ladder(const string& begin_word, const string& end_
       int size = ladders.size();
       unordered_set<string> level_visited;
 
-      while (--size) {
+      while (size--) {
           vector<string> ladder = std::move(ladders.front());
           ladders.pop();
           const string& last_word = ladder.back();
