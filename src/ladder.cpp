@@ -40,7 +40,8 @@ bool is_adjacent(const string& word1, const string& word2) {
 vector<string> generate_word_ladder(const string& begin_word, const string& end_word, const set<string>& word_list) {
 
     if (begin_word == end_word) return {begin_word};
-    if (word_list.find(end_word) == word_list.end()) return {};
+    if (!word_list.count(end_word)) return {};
+
     queue<vector<string>> ladders;
     unordered_set<string> visited;
     ladders.push({begin_word});
@@ -60,9 +61,9 @@ vector<string> generate_word_ladder(const string& begin_word, const string& end_
             for (const string& word : word_list) {
                 // cout << word;
                 if (!visited.count(word) && is_adjacent(last_word, word)) {
-                    vector<string> new_ladder = ladder;
+                    vector<string> new_ladder = std::move(ladder);
                     new_ladder.push_back(word);
-                    ladders.push(new_ladder);
+                    ladders.push(std::move(new_ladder));
                     level_visited.insert(word);
                     // cout << "CHOSEN!!!" << word << endl;;
                 }
