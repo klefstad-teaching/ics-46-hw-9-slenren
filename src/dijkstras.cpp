@@ -1,10 +1,16 @@
 #include "../src/dijkstras.h"
 
+struct ComparePair {
+    bool operator()(const pair<int, int>& a, const pair<int, int>& b) {
+        return a.first > b.first;
+    }
+};
+
 vector<int> dijkstra_shortest_path(const Graph& G, int source, vector<int>& previous) {
     int n = G.numVertices;
     vector<int> distances(n, INF);
     previous.assign(n, -1);
-    priority_queue<pair<int, int>, vector<pair<int, int>>, greater<>> pq;
+    priority_queue<pair<int, int>, vector<pair<int, int>>, ComparePair> pq;
     distances[source] = 0;
     pq.push({0, source});
 
@@ -46,7 +52,8 @@ void print_path(const vector<int>& path, int total) {
         return;
     }
     for (size_t i = 0; i < path.size(); ++i) {
-        cout << path[i] << (i != path.size() - 1 ? " " : "");
-        cout << "\nTotal cost is " << total << endl;
+        cout << path[i] << " ";
     }
+    cout << endl;
+    cout << "Total cost is " << total << endl;
 }
